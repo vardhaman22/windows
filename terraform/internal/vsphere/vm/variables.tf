@@ -30,6 +30,13 @@ variable "memory_in_mb" {
 variable "disk_size" {
   description = "The disk size in gigabytes to use."
   type        = number
+  default     = null
+}
+
+variable "disk_sizes" {
+  description = "The sizes in gigabytes of all disks to attach, in template unit-number order. Takes precedence over disk_size when set."
+  type        = list(number)
+  default     = []
 }
 
 variable "guest_id" {

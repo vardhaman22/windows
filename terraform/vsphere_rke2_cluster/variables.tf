@@ -44,6 +44,7 @@ variable "nodes" {
     cpu_count    = number
     memory_in_mb = number
     disk_size    = number
+    disk_sizes   = optional(list(number), [])
     guest_id     = string
     domain_join  = optional(bool, false)
     replicas     = number
@@ -95,6 +96,12 @@ variable "nodes" {
     condition = alltrue([for s in var.nodes :
     ((s.image.os != "linux") || (s.windows_script_bundle == ""))])
     error_message = "Only Windows servers can specify the windows_script_bundle field."
+  }
+
+  validation {
+    condition = alltrue([for s in var.nodes :
+    ((s.image.os == "windows") || (length(s.disk_sizes) == 0))])
+    error_message = "Only Windows nodes can specify disk_sizes for multiple disks. Linux nodes must use disk_size."
   }
 }
 

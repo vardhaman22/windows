@@ -1,0 +1,33 @@
+{
+  "builds": [
+    {
+      "name": "windows-server-standard-core",
+      "builder_type": "vsphere-iso",
+      "files": null,
+      "artifact_id": "vsurana-windows-server-2022-standard-core-v26.09",
+      "packer_run_uuid": "b73cf291-8bc6-68b5-3fb8-f48c429fe1fe",
+      "custom_data": {
+        "build_date": "2026-09-16 20:23 UTC",
+        "build_username": "rainpole",
+        "build_version": "26.09",
+        "common_data_source": "http",
+        "common_vm_version": "21",
+        "vm_cpu_cores": "1",
+        "vm_cpu_sockets": "12",
+        "vm_disk_size": "81920",
+        "vm_disk_thin_provisioned": "true",
+        "vm_firmware": "efi-secure",
+        "vm_guest_os_type": "windows2019srvNext_64Guest",
+        "vm_mem_size": "12288",
+        "vm_network_card": "vmxnet3",
+        "vsphere_cluster": "Mako Cluster",
+        "vsphere_datacenter": "/PG Devlab",
+        "vsphere_datastore": "/PG Devlab/datastore/NVMe-Cluster-Datastore/Mako15-NVMe2",
+        "vsphere_endpoint": "mako-vcenter.devlab.pgu1.suse.com",
+        "vsphere_folder": "/PG Devlab/vm/vardhaman",
+        "vsphere_iso_path": "[Mako15-Spinner1] ISOs/windows-2022-oct.iso"
+      }
+    }
+  ],
+  "last_run_uuid": "b73cf291-8bc6-68b5-3fb8-f48c429fe1fe"
+}

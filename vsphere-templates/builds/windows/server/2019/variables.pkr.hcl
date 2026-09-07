@@ -242,6 +242,16 @@ variable "vm_disk_thin_provisioned" {
   default     = true
 }
 
+variable "vm_additional_disks" {
+  type = list(object({
+    size                  = number
+    disk_controller_index = optional(number, 0)
+    disk_thin_provisioned = optional(bool, true)
+  }))
+  description = "Additional virtual disks to attach, in MB, beyond the primary OS disk (var.vm_disk_size)."
+  default     = []
+}
+
 variable "vm_network_card" {
   type        = string
   description = "The virtual network card type. (e.g. 'vmxnet3' or 'e1000e')"

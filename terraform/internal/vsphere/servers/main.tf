@@ -30,6 +30,7 @@ module "vms" {
   cpu_count    = each.value.server.cpu_count
   memory_in_mb = each.value.server.memory_in_mb
   disk_size    = each.value.server.disk_size
+  disk_sizes   = each.value.server.disk_sizes
   guest_id     = each.value.server.guest_id
 
   image  = each.value.server.image
@@ -46,6 +47,10 @@ module "vms" {
   scripts = concat(each.value.server.image.os == "windows" ? [{
     content = file("${path.module}/files/extend-disk.ps1")
     name    = "extend-disk.ps1"
+    },
+    {
+      content = file("${path.module}/files/initialize-data-disks.ps1")
+      name    = "initialize-data-disks.ps1"
     }] : [], each.value.server.windows_script_bundle == "debug" ? local.debugScripts : [],
     each.value.server.windows_script_bundle == "dev" ? local.commonDevScripts : [],
     each.value.server.windows_script_bundle == "advancedDev" ? local.advancedDevScripts : [],

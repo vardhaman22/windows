@@ -24,6 +24,8 @@ servers = [
     cpu_count    = 8
     memory_in_mb = 8192
     disk_size    = 50
+    // Alternatively, use disk_sizes to attach additional data disks, e.g.
+    // disk_sizes = [100, 100, 500] # OS disk, then two data disks, all in GB
     guest_id     = "windows2019srvNext_64Guest"
     image = {
       content_library = {

@@ -17,6 +17,7 @@ variable "servers" {
     cpu_count    = number
     memory_in_mb = number
     disk_size    = number
+    disk_sizes   = optional(list(number), [])
     guest_id     = string
     domain_join  = optional(bool, false)
     replicas     = number

@@ -12,6 +12,7 @@ Then, copy `examples/simple-cluster.tfvarsexample` and populate the required fie
 
 - Unlike the more general `vsphere_server` package, it is not possible to provision Windows nodes which are joined to an Active Directory domain.
 - It's possible to automatically deploy helm charts to the provisioned clusters. For more details on this is done, refer to `examples/windows_2022_apps.tfvarsexample`
+- Windows nodes can be provisioned with additional disks by setting `disk_sizes` (a list of GB sizes, ordered to match the source template's disk unit numbers) instead of `disk_size`. This is not supported for Linux nodes.
 
 ## State of Support
 

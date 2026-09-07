@@ -421,6 +421,8 @@ Edit the `*.auto.pkvars.hcl` file in each `builds/<type>/<build>` folder to conf
 
     >**Note**: All `variables.auto.pkvars.hcl` default to using the [VMware Paravirtual SCSI controller][vmware-pvscsi] and the [VMXNET 3][vmware-vmxnet3] network card device types.
 
+    >**Note**: To attach additional (data) disks to the template, set `vm_additional_disks`, a list of objects each with a `size` in MB, e.g. `vm_additional_disks = [{ size = 102400 }, { size = 512000 }]`. Windows Server 2019, 2022, and 2025 builds initialize and format the first additional disk as `F:` during template creation. Additional disks are initialized by consuming Terraform modules after cloning.
+
 
 ### Step 5 - Modify the Configurations (Optional)
 

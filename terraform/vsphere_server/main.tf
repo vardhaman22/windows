@@ -15,6 +15,7 @@ module "server" {
       cpu_count             = var.servers[i].cpu_count
       memory_in_mb          = var.servers[i].memory_in_mb
       disk_size             = var.servers[i].disk_size
+      disk_sizes            = var.servers[i].disk_sizes
       guest_id              = var.servers[i].guest_id
       folder                = var.servers[i].folder
       connection_details    = var.servers[i].connection_details

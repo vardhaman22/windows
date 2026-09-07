@@ -77,4 +77,7 @@ communicator_timeout = "12h"
 
 // Provisioner Settings
 preparationScripts = ["scripts/windows/windows-prepare.ps1"]
-finishScripts = ["scripts/windows/windows-finish.ps1"]
+finishScripts = [
+  "scripts/windows/windows-finish.ps1",
+  "scripts/windows/windows-server-disk-init.ps1"
+]

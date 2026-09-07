@@ -11,7 +11,8 @@ locals {
   template_id = var.image.template_path != "" ? data.vsphere_virtual_machine.template[0].id : (
     var.image.content_library != null ? data.vsphere_content_library_item.item[0].id : null
   )
-  executable_scripts = local.all_scripts == null ? [] : [for script in local.all_scripts : script if script.execute]
+  executable_scripts   = local.all_scripts == null ? [] : [for script in local.all_scripts : script if script.execute]
+  effective_disk_sizes = length(var.disk_sizes) > 0 ? var.disk_sizes : [var.disk_size]
 }
 
 data "vsphere_datacenter" "datacenter" {
@@ -70,8 +71,18 @@ resource "vsphere_virtual_machine" "vm" {
   }
 
   disk {
-    label = "Hard Disk 1"
-    size  = var.disk_size
+    label       = "Hard Disk 1"
+    size        = local.effective_disk_sizes[0]
+    unit_number = 0
+  }
+
+  dynamic "disk" {
+    for_each = slice(local.effective_disk_sizes, 1, length(local.effective_disk_sizes))
+    content {
+      label       = "Hard Disk ${disk.key + 2}"
+      size        = disk.value
+      unit_number = disk.key + 1
+    }
   }
 
   cdrom {

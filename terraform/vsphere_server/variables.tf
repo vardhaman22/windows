@@ -21,6 +21,7 @@ variable "servers" {
     cpu_count    = number
     memory_in_mb = number
     disk_size    = number
+    disk_sizes   = optional(list(number), [])
     guest_id     = string
     domain_join  = optional(bool, false)
     replicas     = number
@@ -68,6 +69,11 @@ variable "servers" {
     condition = alltrue([for s in var.servers :
     ((s.image.template_path == "" && s.image.content_library != null) || (s.image.template_path != "" && s.image.content_library == null))])
     error_message = "A server can not have both a template_id and content library definition."
+  }
+
+  validation {
+    condition     = alltrue([for s in var.servers : s.disk_sizes == null || length(s.disk_sizes) == 0 || alltrue([for size in s.disk_sizes : size > 0])])
+    error_message = "When disk_sizes is set, every entry must be a positive number of gigabytes, ordered to match the source template's disk unit numbers."
   }
 
   validation {

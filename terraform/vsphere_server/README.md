@@ -16,9 +16,29 @@ This module supports creating a VM preconfigured with an instance of Microsoft S
 - The VM should be configured with sufficient resources
   - 16 vCPU, 32 GB RAM, >= 100 GB disk space
 
+### Multiple Disks
+
+By default, each server is provisioned with a single disk sized via `disk_size` (in GB). To attach additional disks, use `disk_sizes` instead, listing every disk in the same order as the source template's disk unit numbers (the first entry is always the OS/boot disk):
+
+```terraform
+servers = [
+  {
+    name         = "windows-2022"
+    cpu_count    = 8
+    memory_in_mb = 8192
+    disk_sizes   = [100, 100, 500] # OS disk, then two data disks, all in GB
+    guest_id     = "windows2019srvNext_64Guest"
+    ...
+  }
+]
+```
+
+`disk_sizes` takes precedence over `disk_size` when both are set. Disk sizes must be at least as large as the corresponding disk on the source template, and the template's disk controller must be able to accommodate the requested disk count. Windows Server 2019, 2022, and 2025 templates created with the multi-disk Packer variables already contain an NTFS `F:` data disk. Any additional raw disks are initialized, partitioned (GPT), and formatted (NTFS) on first boot; the existing `F:` disk is left unchanged. See `terraform/internal/vsphere/servers/files/initialize-data-disks.ps1`.
+
 ### Custom Script Support
 
 This module supports running arbitrary scripts on nodes during the provisioning process. The definition of a custom script list in this module can be found below, with key behavior differences between Linux and Windows described.
+
 
 ```terraform
 scripts = [

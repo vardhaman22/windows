@@ -67,6 +67,14 @@ source "vsphere-iso" "windows-server-standard-core" {
     disk_size             = var.vm_disk_size
     disk_thin_provisioned = var.vm_disk_thin_provisioned
   }
+  dynamic "storage" {
+    for_each = var.vm_additional_disks
+    content {
+      disk_size             = storage.value.size
+      disk_controller_index = storage.value.disk_controller_index
+      disk_thin_provisioned = storage.value.disk_thin_provisioned
+    }
+  }
   network_adapters {
     network      = var.vsphere_network
     network_card = var.vm_network_card
@@ -157,6 +165,14 @@ source "vsphere-iso" "windows-server-standard-dexp" {
     disk_size             = var.vm_disk_size
     disk_controller_index = 0
     disk_thin_provisioned = var.vm_disk_thin_provisioned
+  }
+  dynamic "storage" {
+    for_each = var.vm_additional_disks
+    content {
+      disk_size             = storage.value.size
+      disk_controller_index = storage.value.disk_controller_index
+      disk_thin_provisioned = storage.value.disk_thin_provisioned
+    }
   }
   network_adapters {
     network      = var.vsphere_network
@@ -249,6 +265,14 @@ source "vsphere-iso" "windows-server-datacenter-core" {
     disk_controller_index = 0
     disk_thin_provisioned = var.vm_disk_thin_provisioned
   }
+  dynamic "storage" {
+    for_each = var.vm_additional_disks
+    content {
+      disk_size             = storage.value.size
+      disk_controller_index = storage.value.disk_controller_index
+      disk_thin_provisioned = storage.value.disk_thin_provisioned
+    }
+  }
   network_adapters {
     network      = var.vsphere_network
     network_card = var.vm_network_card
@@ -340,6 +364,14 @@ source "vsphere-iso" "windows-server-datacenter-dexp" {
   storage {
     disk_size             = var.vm_disk_size
     disk_thin_provisioned = var.vm_disk_thin_provisioned
+  }
+  dynamic "storage" {
+    for_each = var.vm_additional_disks
+    content {
+      disk_size             = storage.value.size
+      disk_controller_index = storage.value.disk_controller_index
+      disk_thin_provisioned = storage.value.disk_thin_provisioned
+    }
   }
   network_adapters {
     network      = var.vsphere_network

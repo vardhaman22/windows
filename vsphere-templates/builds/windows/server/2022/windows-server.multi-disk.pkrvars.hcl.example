@@ -1,0 +1,13 @@
+// Copy this file to a private .pkrvars.hcl file and adjust the values.
+// Values are in MB. The primary disk becomes C: and the first additional
+// disk is initialized and formatted as F: while the template is created.
+
+vm_disk_size = 40960
+
+vm_additional_disks = [
+  {
+    size                  = 102400
+    disk_controller_index = 0
+    disk_thin_provisioned = true
+  }
+]

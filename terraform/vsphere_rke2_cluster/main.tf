@@ -46,6 +46,7 @@ module "servers" {
       cpu_count          = var.nodes[i].cpu_count
       memory_in_mb       = var.nodes[i].memory_in_mb
       disk_size          = var.nodes[i].disk_size
+      disk_sizes         = var.nodes[i].disk_sizes
       guest_id           = var.nodes[i].guest_id
       folder             = var.nodes[i].folder
       connection_details = var.nodes[i].connection_details
